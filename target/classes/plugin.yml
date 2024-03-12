@@ -1,0 +1,10 @@
+main: com.drawer.Main
+version: 1.0.0
+name: Drawer
+api-version: 1.13
+folia-supported: true
+commands:
+  drawer:
+    description: Drawer command
+  component:
+    description: component command

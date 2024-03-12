@@ -1,0 +1,144 @@
+line-format: "&f- &a&l{amount} &e{item}"
+
+hide-upgrade-description:
+  - "&c✧ &fThis option allows you to hide the upgrades of the drawer."
+  - "&c✧ &fUse it to keep your drawer's appearance clean and organized."
+
+hide-key-description:
+  - "&b✧ &fThis option allows you to hide the items in the drawer."
+  - "&b✧ &fUse it to keep your drawer's contents private and secure."
+
+max-upgrade-description:
+  - "&d✧ &fMax Upgrade: The ultimate upgrade for your drawer."
+  - "&d✧ &fIt maximizes storage capacity and optimizes your drawer's efficiency."
+
+max-upgrade-1-multiplier: 2
+max-upgrade-2-multiplier: 4
+max-upgrade-3-multiplier: 6
+
+max-amount: 100
+
+component-name: "{name}"
+
+drawer-block: CHISELED_BOOKSHELF
+controller-block: OBSERVER
+controller-face: EAST
+
+drawers:
+  blank:
+    name: "&a&lBlank"
+    lore:
+      - "Blank item"
+      - ""
+    itemParts:
+      - name: blank
+        values: { vertical: 0, horizontal: 0, lateral: 0, scale: 0 }
+    craft:
+      shape:
+        - "TTT"
+        - "TWT"
+        - "TTT"
+      ingredients:
+        W: GLASS
+        T: REDSTONE
+  advanced:
+    name: "&a&lAdvanced Drawer"
+    lore:
+      - "&a✧ &fThis drawer is an advanced drawer"
+      - "&a✧ &fIt has been carefully designed to maximize storage space."
+      - "&a✧ &fIt can hold a variety of items, from the smallest to the largest."
+      - "&a✧ &fIt's easy to use: just right-click to open and drag-and-drop items to store them."
+      - "&a✧ &fIts elegant design and advanced functionality make it a perfect choice for any home or inventory."
+
+    textParts:
+      - name: textPart0
+        values: {vertical: 0, horizontal: 0.51, lateral: 0, scale: 0.25}
+      - name: textPart1
+        values: {vertical: 0.5, horizontal: 0.51, lateral: 0, scale: 0.25}
+    itemParts:
+      - name: itemPart0
+        values: {vertical: 0.3, horizontal: 0.51, lateral: 0, scale: 0.25}
+      - name: itemPart1
+        values: {vertical: 0.8, horizontal: 0.51, lateral: 0, scale: 0.25}
+    craft:
+      shape:
+        - "TTT"
+        - "TWT"
+        - "TTT"
+      ingredients:
+        W: DISPENSER
+        T: SPRUCE_WOOD
+  normal:
+    name: "&a&lNormal Drawer"
+    lore:
+      - "&a✧ &fThis drawer is an advanced drawer"
+      - "&a✧ &fIt has been carefully designed to maximize storage space."
+      - "&a✧ &fIt can hold a variety of items, from the smallest to the largest."
+      - "&a✧ &fIt's easy to use: just right-click to open and drag-and-drop items to store them."
+      - "&a✧ &fIts elegant design and advanced functionality make it a perfect choice for any home or inventory."
+
+    textParts:
+      - name: textPart0
+        values: {vertical: 0, horizontal: 0.51, lateral: 0, scale: 0.5}
+    itemParts:
+      - name: itemPart0
+        values: {vertical: 0.5, horizontal: 0.51, lateral: 0, scale: 0.5}
+    craft:
+      shape:
+        - "TTT"
+        - "TWT"
+        - "TTT"
+      ingredients:
+        W: DISPENSER
+        T: OAK_WOOD
+  controller:
+    name: "&a&lController"
+    lore:
+      - "Controller item"
+      - ""
+    itemParts:
+      - name: controller
+        values: {vertical: 0, horizontal: 0, lateral: 0, scale: 0}
+    craft:
+      shape:
+        - "TTT"
+        - "TWT"
+        - "TTT"
+      ingredients:
+        W: TARGET
+        T: REDSTONE
+  superadvanced:
+    name: "&a&lSuper Advanced Drawer"
+    lore:
+      - "&a✧ &fThis drawer is an advanced drawer"
+      - "&a✧ &fIt has been carefully designed to maximize storage space."
+      - "&a✧ &fIt can hold a variety of items, from the smallest to the largest."
+      - "&a✧ &fIt's easy to use: just right-click to open and drag-and-drop items to store them."
+      - "&a✧ &fIts elegant design and advanced functionality make it a perfect choice for any home or inventory."
+
+    textParts:
+      - name: textPart0
+        values: {vertical: 0, horizontal: 0.51, lateral: -0.25, scale: 0.25}
+      - name: textPart1
+        values: {vertical: 0.5, horizontal: 0.51, lateral: 0.25, scale: 0.25}
+      - name: textPart2
+        values: {vertical: 0.5, horizontal: 0.51, lateral: -0.25, scale: 0.25}
+      - name: textPart3
+        values: {vertical: 0, horizontal: 0.51, lateral: 0.25, scale: 0.25}
+    itemParts:
+      - name: itemPart0
+        values: {vertical: 0.3, horizontal: 0.51, lateral: -0.25, scale: 0.25}
+      - name: itemPart1
+        values: {vertical: 0.8, horizontal: 0.51, lateral: 0.25, scale: 0.25}
+      - name: itemPart2
+        values: {vertical: 0.8, horizontal: 0.51, lateral: -0.25, scale: 0.25}
+      - name: itemPart3
+        values: {vertical: 0, horizontal: 0.51, lateral: 0.25, scale: 0.25}
+    craft:
+      shape:
+        - "TTT"
+        - "TWT"
+        - "TTT"
+      ingredients:
+        W: DISPENSER
+        T: JUNGLE_WOOD
