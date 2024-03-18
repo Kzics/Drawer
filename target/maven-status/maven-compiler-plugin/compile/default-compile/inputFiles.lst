@@ -3,14 +3,17 @@ C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\obj\drawers\BlankDra
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\components\HideAbility.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\obj\DrawerBorder.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\components\Components.java
+C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\event\DrawerRemoveEvent.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\DrawerAction.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\event\listeners\CallerListener.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\craft\component\ComponentRecipe.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\DrawerScheduler.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\craft\drawers\AdvancedDrawerRecipe.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\obj\drawers\AdvancedDrawer.java
+C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\event\DrawerAddEvent.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\AdvancedDrawerItem.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\display\DrawerItemDisplay.java
+C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\craft\drawers\BlankDrawerRecipe.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\obj\impl\Drawer.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\obj\drawers\NormalDrawer.java
 C:\Users\hishh\IdeaProjects\Drawer\src\main\java\com\drawer\commands\ItemDisplayCommand.java

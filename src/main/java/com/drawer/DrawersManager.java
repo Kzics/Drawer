@@ -47,6 +47,7 @@ public class DrawersManager {
         this.getDrawers().remove(drawer.getLocation());
     }
     public void removeDrawer(Location drawer){
+        this.getDrawers().get(drawer).removeDrawer(true);
         this.getDrawers().remove(drawer);
     }
 

@@ -15,6 +15,7 @@ public class DrawerRecipe extends ShapedRecipe {
     }
 
     void loadRecipe(String type){
+        if(!main.getConfig().getBoolean("drawers."+type+".enabled")) return;
 
         if (main.getConfig().contains(String.format("drawers.%s.craft",type))) {
             String[] shapeArray = main.getConfig().getStringList(String.format("drawers.%s.craft.shape",type)).toArray(new String[0]);

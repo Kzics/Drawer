@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Drawer" />
+        <module name="AdvancedDrawer" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Drawer" target="16" />
+    </bytecodeTargetLevel>
   </component>
 </project>

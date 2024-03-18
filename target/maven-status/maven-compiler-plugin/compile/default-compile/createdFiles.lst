@@ -3,6 +3,7 @@ com\drawer\craft\component\ComponentRecipe.class
 com\drawer\utils\Metrics$DrilldownPie.class
 com\drawer\display\DrawerDisplay.class
 com\drawer\craft\drawers\SuperAdvancedDrawerRecipe.class
+com\drawer\event\DrawerAddEvent.class
 com\drawer\utils\Metrics$MultiLineChart.class
 com\drawer\display\DrawerTextDisplay.class
 com\drawer\components\MaxUpgradeAbility.class
@@ -12,6 +13,7 @@ com\drawer\Main.class
 com\drawer\obj\drawers\SuperAdvancedDrawer.class
 com\drawer\utils\Metrics$SimplePie.class
 com\drawer\craft\drawers\NormalDrawerRecipe.class
+com\drawer\craft\drawers\BlankDrawerRecipe.class
 com\drawer\utils\Metrics$AdvancedBarChart.class
 com\drawer\DrawerScheduler.class
 com\drawer\obj\drawers\AdvancedDrawer.class
@@ -22,6 +24,7 @@ com\drawer\event\DrawerPlaceEvent.class
 com\drawer\display\DrawerItemDisplay.class
 com\drawer\obj\drawers\BlankDrawer.class
 com\drawer\components\Components.class
+com\drawer\event\DrawerRemoveEvent.class
 com\drawer\utils\Metrics$MetricsBase.class
 com\drawer\obj\impl\Drawer.class
 com\drawer\loader\DrawersLoader.class
