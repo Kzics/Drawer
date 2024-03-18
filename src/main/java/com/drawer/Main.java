@@ -115,6 +115,7 @@ public class Main extends JavaPlugin implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (!event.getHand().equals(EquipmentSlot.HAND)) return;
 
+        if(event.getClickedBlock() == null) return;
 
         if (checkHasWorldGuard()) {
             RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(BukkitAdapter.adapt(event.getPlayer().getWorld()));
