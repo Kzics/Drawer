@@ -129,7 +129,6 @@ public abstract class Drawer {
             drawerPart.getItemDisplay().remove();
         });
 
-
         if(real) location.getBlock().setType(Material.AIR);
 
         components.forEach(componentAbility -> componentAbility.getDisplay().remove());

@@ -8,14 +8,19 @@ import org.bukkit.inventory.ShapedRecipe;
 
 public class DrawerRecipe extends ShapedRecipe {
     private final Main main;
+    private boolean enabled;
     public DrawerRecipe(NamespacedKey key, ItemStack result, Main main) {
         super(key, result);
 
         this.main = main;
+        this.enabled = true;
     }
 
     void loadRecipe(String type){
-        if(!main.getConfig().getBoolean("drawers."+type+".enabled")) return;
+        if(!main.getConfig().getBoolean("drawers." + type + ".enabled")){
+            enabled = !enabled;
+            return;
+        }
 
         if (main.getConfig().contains(String.format("drawers.%s.craft",type))) {
             String[] shapeArray = main.getConfig().getStringList(String.format("drawers.%s.craft.shape",type)).toArray(new String[0]);
@@ -30,7 +35,7 @@ public class DrawerRecipe extends ShapedRecipe {
     }
 
     public void register(){
-        main.getServer().addRecipe(this);
+        if(enabled) main.getServer().addRecipe(this);
     }
 
 }

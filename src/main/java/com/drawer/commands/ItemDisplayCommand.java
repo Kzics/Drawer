@@ -55,7 +55,7 @@ public class ItemDisplayCommand implements CommandExecutor, TabCompleter {
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&cWorld doesn't exist!"));
                     return false;
                 }
-                if(!player.hasPermission("drawer.manage") && !player.isOp()) return false;
+                if(!player.hasPermission("drawer.manage") || !player.isOp()) return false;
                 Main.getDrawersManager().removeDrawers(world);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&aSucessfully removed drawers from world"));
 
@@ -79,7 +79,11 @@ public class ItemDisplayCommand implements CommandExecutor, TabCompleter {
                 if(!player.hasPermission("drawer.display.craft") && !player.isOp()) return false;
 
                 if (!main.getConfig().contains("drawers." + type + ".craft.ingredients")) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&cCe type de tiroir n'existe pas."));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&cThis drawer doesn't exist."));
+                    return true;
+                }
+                if(!main.getConfig().getBoolean("drawers." + type + ".enabled")){
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&cThis drawer is disabled!."));
                     return true;
                 }
                 player.openInventory(createCraftInventory(type));

@@ -34,10 +34,12 @@ public class DrawerListeners implements Listener {
     }
 
 
+    @EventHandler
     public void onDrawerAdd(DrawerAddEvent event){
         handleDrawerInteraction(event.getEvent(), DrawerAction.ADD, event.getEvent().getItem());
     }
 
+    @EventHandler
     public void onDrawerRemove(DrawerRemoveEvent event){
         handleDrawerInteraction(event.getEvent(), DrawerAction.REMOVE, event.getEvent().getItem());
 
