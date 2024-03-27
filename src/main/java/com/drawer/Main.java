@@ -7,6 +7,10 @@ import com.drawer.components.ComponentAbility;
 import com.drawer.components.Components;
 import com.drawer.components.HideAbility;
 import com.drawer.components.MaxUpgradeAbility;
+import com.drawer.craft.component.HideKeyRecipe;
+import com.drawer.craft.component.HideUpgradeRecipe;
+import com.drawer.craft.component.MaxUpgradeRecipe;
+import com.drawer.craft.component.VoidRecipe;
 import com.drawer.craft.drawers.*;
 import com.drawer.display.DrawerItemDisplay;
 import com.drawer.display.DrawerPart;
@@ -53,12 +57,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -95,11 +97,22 @@ public class Main extends JavaPlugin implements Listener {
         getCommand("component").setTabCompleter(new ComponentCommand(this));
 
         DrawerScheduler.runTaskTimer(new HopperTask(),0,50L,this);
+
+        // Drawer recipes
         new NormalDrawerRecipe(new NamespacedKey(this,"normalDrawer"),createDrawerItem("normal"),this).register();
         new AdvancedDrawerRecipe(new NamespacedKey(this,"advancedDrawer"),createDrawerItem("advanced"),this).register();
         new SuperAdvancedDrawerRecipe(new NamespacedKey(this,"superAdvancedDrawer"),createDrawerItem("superadvanced"),this).register();
         new ControllerRecipe(new NamespacedKey(this,"controllerDrawer"),createDrawerItem("controller"),this).register();
         new BlankDrawerRecipe(new NamespacedKey(this, "blankDrawer"),createDrawerItem("blank"),this).register();
+
+        // Component recipes
+
+        new HideKeyRecipe(new NamespacedKey(this,"hideKey"),createComponentItem(Components.HIDE_KEY),this).register();
+        new HideUpgradeRecipe(new NamespacedKey(this,"hideUpgradeKey"),createComponentItem(Components.HIDE_UPGRADE),this).register();
+        new VoidRecipe(new NamespacedKey(this,"voidKey"),createComponentItem(Components.VOID_UPGRADE),this).register();
+        new MaxUpgradeRecipe(1,new NamespacedKey(this,"maxupgrade1key"),createComponentItem(Components.MAX_UPGRADE_1),this).register();
+        new MaxUpgradeRecipe(2,new NamespacedKey(this,"maxupgrade2key"),createComponentItem(Components.MAX_UPGRADE_2),this).register();
+        new MaxUpgradeRecipe(3,new NamespacedKey(this,"maxupgrade3key"),createComponentItem(Components.MAX_UPGRADE_3),this).register();
     }
 
 
@@ -418,6 +431,29 @@ public class Main extends JavaPlugin implements Listener {
 
         drawerItem.setItemMeta(meta);
         return drawerItem;
+    }
+    public ItemStack createComponentItem(Components component) {
+        ItemStack componentItem = new ItemStack(Material.TRIPWIRE_HOOK);
+        String componentName = component.name();
+
+        ItemMeta meta = componentItem.getItemMeta();
+        String displayName = getConfig().getString("components." + componentName.toLowerCase().replace("_","-") + ".name");
+
+
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
+        List<String> componentDescription = getConfig().getStringList("components." + componentName.toLowerCase() + ".lore");
+
+        List<String> coloredLores = new ArrayList<>();
+
+        for (String lore : componentDescription) {
+            coloredLores.add(ChatColor.translateAlternateColorCodes('&', lore));
+        }
+
+        meta.setLore(coloredLores);
+        meta.getPersistentDataContainer().set(componentKey, PersistentDataType.STRING, componentName);
+        componentItem.setItemMeta(meta);
+
+        return componentItem;
     }
 
     private void addPart(ItemMeta meta, String partKey, String partValue) {

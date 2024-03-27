@@ -20,6 +20,86 @@ max-amount: 100
 
 component-name: "{name}"
 
+components:
+  hide-upgrade:
+    name: "Hide Upgrade"
+    lore:
+      - "Crafted to conceal upgrades."
+      - "Essential for covert operations."
+    craft:
+      shape:
+        - " T "
+        - "TWT"
+        - " T "
+      ingredients:
+        W: TORCH
+        T: REDSTONE
+  hide-key:
+    name: "Hide Key"
+    lore:
+      - "A key shrouded in secrecy."
+      - "Use it to unlock hidden paths."
+    craft:
+      shape:
+        - "T T"
+        - "WTW"
+        - "T T"
+      ingredients:
+        W: OBSERVER
+        T: REDSTONE
+  max-upgrade-1:
+    name: "Max Upgrade"
+    lore:
+      - "Empowers your equipment to the maximum."
+      - "Unleash its potential with caution."
+    craft:
+      shape:
+        - " T "
+        - "TWT"
+        - " T "
+      ingredients:
+        W: OBSERVER
+        T: REDSTONE
+  max-upgrade-2:
+    name: "Max Upgrade 2"
+    lore:
+      - "The next level of enhancement."
+      - "Elevate your capabilities to new heights."
+    craft:
+      shape:
+        - "TTT"
+        - "TWT"
+        - "TTT"
+      ingredients:
+        W: DIAMOND_BLOCK
+        T: REDSTONE
+  max-upgrade-3:
+    name: "Max Upgrade 3"
+    lore:
+      - "The ultimate upgrade for the elite."
+      - "Harness its power wisely."
+    craft:
+      shape:
+        - "TTT"
+        - "TWT"
+        - "TTT"
+      ingredients:
+        W: OBSERVER
+        T: IRON_BLOCK
+  void-upgrade:
+    name: "Void Component"
+    lore:
+      - "A fragment of the void's essence."
+      - "Use with caution, for it hungers."
+    craft:
+      shape:
+        - " T "
+        - "TWT"
+        - " T "
+      ingredients:
+        W: OBSERVER
+        T: REDSTONE
+
 drawer-block: CHISELED_BOOKSHELF
 controller-block: OBSERVER
 controller-face: EAST

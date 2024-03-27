@@ -29,6 +29,7 @@ public class ComponentCommand implements CommandExecutor, TabCompleter {
         this.main = main;
     }
 
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 
@@ -49,37 +50,7 @@ public class ComponentCommand implements CommandExecutor, TabCompleter {
             default -> null;
         };
 
-        ItemStack componentItem = new ItemStack(Material.TRIPWIRE_HOOK);
-        String componentName = components.getComponent().name();
-        String descriptionKey;
-
-        if (componentName.startsWith("MAX")) {
-            descriptionKey = componentName.substring(0, componentName.length() - 2).toLowerCase().replace("_","-");
-        } else {
-            descriptionKey = componentName.replace("_", "-").toLowerCase();
-        }
-
-        descriptionKey += "-description";
-        ItemMeta meta = componentItem.getItemMeta();
-        String displayName = main.getConfig().getString("component-name").replace("{name}", components.getName());
-
-        // Capitalize the first letter of each word in the display name
-        displayName = Arrays.stream(displayName.split(" "))
-                .map(word -> Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase())
-                .collect(Collectors.joining(" "));
-
-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
-        List<String> componentDescription = main.getConfig().getStringList(descriptionKey);
-
-        List<String> coloredLores = new ArrayList<>();
-
-        for (String lore : componentDescription) {
-            coloredLores.add(ChatColor.translateAlternateColorCodes('&', lore));
-        }
-
-        meta.setLore(coloredLores);
-        meta.getPersistentDataContainer().set(main.componentKey, PersistentDataType.STRING,components.getComponent().name());
-        componentItem.setItemMeta(meta);
+        ItemStack componentItem = main.createComponentItem(components.getComponent());
 
         ((Player)commandSender).getInventory().addItem(componentItem);
         return false;
