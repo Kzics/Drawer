@@ -1,3 +1,4 @@
+com\drawer\craft\component\MaxUpgradeRecipe.class
 com\drawer\components\VoidAbility.class
 com\drawer\craft\component\ComponentRecipe.class
 com\drawer\utils\Metrics$DrilldownPie.class
@@ -40,6 +41,7 @@ com\drawer\menu\DrawerMenu.class
 com\drawer\commands\ItemDisplayCommand.class
 com\drawer\blocks\DrawerController.class
 com\drawer\obj\drawers\OreDrawer.class
+com\drawer\craft\component\VoidRecipe.class
 com\drawer\display\DrawerPart.class
 com\drawer\utils\Metrics$SingleLineChart.class
 com\drawer\craft\drawers\AdvancedDrawerRecipe.class
@@ -52,10 +54,12 @@ com\drawer\display\DrawerDisplay$1.class
 com\drawer\display\PartType.class
 com\drawer\Main$1.class
 com\drawer\utils\Metrics$SimpleBarChart.class
+com\drawer\craft\component\HideKeyRecipe.class
 com\drawer\display\ComponentDisplay.class
 com\drawer\utils\Metrics.class
 com\drawer\craft\drawers\DrawerRecipe.class
 com\drawer\utils\CustomPair.class
+com\drawer\craft\component\HideUpgradeRecipe.class
 com\drawer\components\HideAbility.class
 com\drawer\utils\Metrics$AdvancedPie.class
 com\drawer\HopperTask.class
