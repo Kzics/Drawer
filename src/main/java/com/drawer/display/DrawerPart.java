@@ -9,14 +9,12 @@ public class DrawerPart {
 
     DrawerItemDisplay itemDisplay;
     DrawerTextDisplay textDisplay;
-    PartType type;
     private boolean hidden;
     private ItemStack cache;
 
     public DrawerPart(DrawerItemDisplay itemDisplay, DrawerTextDisplay display){
         this.itemDisplay = itemDisplay;
         this.textDisplay = display;
-        this.type = PartType.NORMAL;
         this.hidden = false;
     }
 

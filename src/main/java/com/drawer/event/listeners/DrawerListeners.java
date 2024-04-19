@@ -3,6 +3,7 @@ package com.drawer.event.listeners;
 import com.drawer.DrawerAction;
 import com.drawer.Main;
 import com.drawer.display.DrawerPart;
+import com.drawer.display.PartType;
 import com.drawer.event.DrawerAddEvent;
 import com.drawer.event.DrawerPlaceEvent;
 import com.drawer.event.DrawerRemoveEvent;
@@ -58,6 +59,8 @@ public class DrawerListeners implements Listener {
             DrawerPart part = advancedDrawer.getPart(itemDisplay.getLocation());
 
             if(part == null) return;
+            if(part.getItemDisplay().getPartType().equals(PartType.DISABLED)) return;
+
             if(event.getItem() != null && event.getItem().getItemMeta() != null && event.getItem().getItemMeta().getPersistentDataContainer().has(main.componentKey, PersistentDataType.STRING)){
                 String component = event.getItem().getItemMeta().getPersistentDataContainer().get(main.componentKey,PersistentDataType.STRING);
                 event.setCancelled(true);

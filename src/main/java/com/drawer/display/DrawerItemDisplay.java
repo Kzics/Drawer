@@ -13,6 +13,7 @@ public class DrawerItemDisplay extends DrawerDisplay {
     private final double verticalOffset;
     private final double horizontalOffset;
     private final double lateralOffset;
+    private PartType partType;
     public DrawerItemDisplay(Location location, BlockFace face, double verticalOffset, double horizontalOffset) {
         super(location.getWorld().spawn(location.clone().add(
                 0.5 + horizontalOffset * face.getModX(),
@@ -38,7 +39,7 @@ public class DrawerItemDisplay extends DrawerDisplay {
         display.setDisplayWidth(0.25f);
     }
 
-    public DrawerItemDisplay(Location location, BlockFace face, double verticalOffset, double horizontalOffset, double lateralOffset) {
+    public DrawerItemDisplay(Location location, BlockFace face, double verticalOffset, double horizontalOffset, double lateralOffset, PartType partType) {
         super(location.getWorld().spawn(location.clone().add(
                 0.5 + horizontalOffset * face.getModX() + lateralOffset * face.getModZ(),
                 verticalOffset,
@@ -61,6 +62,7 @@ public class DrawerItemDisplay extends DrawerDisplay {
         display.setDisplayHeight(0.25f);
         display.setDisplayWidth(0.25f);
         display.setPersistent(true);
+        this.partType = partType;
 
     }
 
@@ -68,6 +70,10 @@ public class DrawerItemDisplay extends DrawerDisplay {
         if(display instanceof ItemDisplay itemDisplay){
             itemDisplay.setItemStack(stack);
         }
+    }
+
+    public PartType getPartType() {
+        return partType;
     }
 
     public float getScale(){

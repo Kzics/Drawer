@@ -15,6 +15,7 @@ import com.drawer.craft.drawers.*;
 import com.drawer.display.DrawerItemDisplay;
 import com.drawer.display.DrawerPart;
 import com.drawer.display.DrawerTextDisplay;
+import com.drawer.display.PartType;
 import com.drawer.event.DrawerAddEvent;
 import com.drawer.event.DrawerRemoveEvent;
 import com.drawer.event.listeners.DrawerListeners;
@@ -250,8 +251,7 @@ public class Main extends JavaPlugin implements Listener {
             default:
                 return;
         }
-
-
+        
         PersistentDataContainer dataContainer = event.getItemInHand().getItemMeta().getPersistentDataContainer();
         Map<Integer, CustomPair<DrawerItemDisplay, DrawerTextDisplay>> partPairs = new HashMap<>();
 
@@ -267,9 +267,11 @@ public class Main extends JavaPlugin implements Listener {
             double horizontalOffset = Double.parseDouble(params[1]);
             double lateralOffset = Double.parseDouble(params[2]);
             double scale = Double.parseDouble(params[3]);
+            PartType partType = PartType.ENABLED;
+            if(params.length == 6) partType = PartType.valueOf(params[5]);
 
             if (key.getKey().startsWith("itempart")) {
-                DrawerItemDisplay itemDisplay = new DrawerItemDisplay(placed.getLocation(), blockDir.getFacing(), verticalOffset, horizontalOffset, lateralOffset);
+                DrawerItemDisplay itemDisplay = new DrawerItemDisplay(placed.getLocation(), blockDir.getFacing(), verticalOffset, horizontalOffset, lateralOffset, partType);
                 itemDisplay.setItemStack(new ItemStack(Material.valueOf(params[4])));
                 itemDisplay.changeScale(scale);
                 if (partPairs.get(index) == null) {
@@ -471,9 +473,10 @@ public class Main extends JavaPlugin implements Listener {
         }
 
         for (Map<?, ?> part : itemParts) {
+            String partType = (String) part.get("type");
             Map<?, ?> values = (Map<?, ?>) part.get("values");
-            String partVal = String.format("%s,%s,%s,%s,AIR",values.get("vertical"),values.get("horizontal")
-                    ,values.get("lateral"),values.get("scale"));
+            String partVal = String.format("%s,%s,%s,%s,AIR,%s",values.get("vertical"),values.get("horizontal")
+                    ,values.get("lateral"),values.get("scale"), partType);
             addPart(meta, (String) part.get("name"),partVal);
         }
     }

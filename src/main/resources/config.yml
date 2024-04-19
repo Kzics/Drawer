@@ -113,6 +113,7 @@ drawers:
       - ""
     itemParts:
       - name: blank
+        type: "DISABLED"
         values: { vertical: 0, horizontal: 0, lateral: 0, scale: 0 }
     craft:
       shape:
@@ -139,8 +140,10 @@ drawers:
         values: {vertical: 0.5, horizontal: 0.51, lateral: 0, scale: 0.25}
     itemParts:
       - name: itemPart0
+        type: "ENABLED"
         values: {vertical: 0.3, horizontal: 0.51, lateral: 0, scale: 0.25}
       - name: itemPart1
+        type: "ENABLED"
         values: {vertical: 0.8, horizontal: 0.51, lateral: 0, scale: 0.25}
     craft:
       shape:
@@ -165,6 +168,7 @@ drawers:
         values: {vertical: 0, horizontal: 0.51, lateral: 0, scale: 0.5}
     itemParts:
       - name: itemPart0
+        type: "DISABLED"
         values: {vertical: 0.5, horizontal: 0.51, lateral: 0, scale: 0.5}
     craft:
       shape:
@@ -212,12 +216,16 @@ drawers:
         values: {vertical: 0, horizontal: 0.51, lateral: 0.25, scale: 0.25}
     itemParts:
       - name: itemPart0
+        type: "ENABLED"
         values: {vertical: 0.3, horizontal: 0.51, lateral: -0.25, scale: 0.25}
       - name: itemPart1
+        type: "ENABLED"
         values: {vertical: 0.8, horizontal: 0.51, lateral: 0.25, scale: 0.25}
       - name: itemPart2
+        type: "ENABLED"
         values: {vertical: 0.8, horizontal: 0.51, lateral: -0.25, scale: 0.25}
       - name: itemPart3
+        type: "ENABLED"
         values: {vertical: 0, horizontal: 0.51, lateral: 0.25, scale: 0.25}
     craft:
       shape:
