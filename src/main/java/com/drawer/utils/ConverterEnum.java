@@ -18,4 +18,12 @@ public enum ConverterEnum {
     public Material[] getMaterials() {
         return materials;
     }
+
+    public Material getIngot(){
+        return materials[0];
+    }
+
+    public Material getNugget(){
+        return materials[1];
+    }
 }

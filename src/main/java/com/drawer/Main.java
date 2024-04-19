@@ -416,13 +416,13 @@ public class Main extends JavaPlugin implements Listener {
             case "ore"->{
                 meta.getPersistentDataContainer().set(drawerKey, PersistentDataType.STRING, "ore");
                 addPart(meta, "textPart0", "0.5,0.51,0,0.75,0");
-                addPart(meta, "itemPart0", "0.8,0.51,0,0.75,AIR");
+                addPart(meta, "itemPart0", "0.8,0.51,0,0.75,AIR,LINKED");
 
                 addPart(meta, "textPart1", "0,0.51,-0.25,0.75,0");
-                addPart(meta, "itemPart1", "0.3,0.51,-0.25,0.75,AIR");
+                addPart(meta, "itemPart1", "0.3,0.51,-0.25,0.75,AIR,DISABLED");
 
                 addPart(meta, "textPart2", "0,0.51,0.25,0.75,0");
-                addPart(meta, "itemPart2", "0.3,0.51,0.25,0.75,AIR");
+                addPart(meta, "itemPart2", "0.3,0.51,0.25,0.75,AIR,DISABLED");
             }
             case "blank" ->{
                 meta.getPersistentDataContainer().set(drawerKey, PersistentDataType.STRING, "blank");

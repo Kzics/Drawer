@@ -2,5 +2,6 @@ package com.drawer.display;
 
 public enum PartType {
     ENABLED,
-    DISABLED
+    DISABLED,
+    LINKED
 }

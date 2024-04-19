@@ -26,6 +26,7 @@ com\drawer\display\DrawerItemDisplay.class
 com\drawer\obj\drawers\BlankDrawer.class
 com\drawer\components\Components.class
 com\drawer\event\DrawerRemoveEvent.class
+com\drawer\display\enums\PartStatus.class
 com\drawer\utils\Metrics$MetricsBase.class
 com\drawer\obj\impl\Drawer.class
 com\drawer\loader\DrawersLoader.class

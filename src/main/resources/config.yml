@@ -235,3 +235,17 @@ drawers:
       ingredients:
         W: DISPENSER
         T: JUNGLE_WOOD
+  ore:
+    enabled: true
+    name: "&a&lOre"
+    lore:
+      - "Ore Drawer"
+      - ""
+    craft:
+      shape:
+        - "TTT"
+        - "TWT"
+        - "TTT"
+      ingredients:
+        W: GLASS
+        T: REDSTONE

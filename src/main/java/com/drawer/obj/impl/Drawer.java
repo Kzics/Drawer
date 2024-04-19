@@ -5,6 +5,8 @@ import com.drawer.Main;
 import com.drawer.components.ComponentAbility;
 import com.drawer.display.ComponentDisplay;
 import com.drawer.display.DrawerPart;
+import com.drawer.display.PartType;
+import com.drawer.utils.ConverterEnum;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
@@ -109,14 +111,15 @@ public abstract class Drawer {
     public void updateDrawer(int amount, DrawerAction action, ItemStack itemStack, DrawerPart drawerPart) {
         if (action.equals(DrawerAction.ADD)) {
             if (!itemStack.getType().equals(getStoredItem(drawerPart).getType()) && !isEmpty(drawerPart)) return;
+            drawerPart.getItemDisplay().setItemStack(itemStack);
             addAmount(amount, drawerPart);
+
         } else {
             removeAmount(amount, drawerPart);
         }
 
         drawerPart.getTextDisplay().setText(formatAmount(getAmount(drawerPart)));
         if (itemStack == null || itemStack.getType().equals(Material.AIR)) return;
-        drawerPart.getItemDisplay().setItemStack(itemStack);
 
         if(getAmount(drawerPart) <= 0) {
             setItem(drawerPart,new ItemStack(Material.AIR));
@@ -140,7 +143,53 @@ public abstract class Drawer {
             res = 0;
         }
         setAmount(res, drawerPart);
+
+        if(drawerPart.getItemDisplay().getPartType().equals(PartType.DISABLED)){
+            for (DrawerPart part : drawerParts){
+                if(part.equals(drawerPart)) continue;
+                if(part.getItemDisplay().getItemStack() == null) continue;
+                ItemStack itemStack = part.getItemDisplay().getItemStack();
+                String itemName = itemStack.getType().name();
+
+                if(itemName.contains("NUGGET")){
+                    int equivalentIngotAmount = amount / 9; // Assuming 1 ingot = 9 nuggets
+                    int equivalentBlockAmount = amount / 81; // Assuming 1 block = 81 nuggets
+                    adjustAmount(part, equivalentIngotAmount, equivalentBlockAmount);
+                }
+                else if(itemName.contains("INGOT")){
+                    int equivalentNuggetAmount = amount * 9; // Assuming 1 ingot = 9 nuggets
+                    int equivalentBlockAmount = amount / 9; // Assuming 1 block = 9 ingots
+                    adjustAmount(part, equivalentNuggetAmount, equivalentBlockAmount);
+                }
+                else if(itemName.contains("BLOCK")){
+                    int equivalentNuggetAmount = amount * 81; // Assuming 1 block = 81 nuggets
+                    int equivalentIngotAmount = amount * 9; // Assuming 1 block = 9 ingots
+                    adjustAmount(part, equivalentNuggetAmount, equivalentIngotAmount);
+                }
+            }
+        }
     }
+    private void adjustAmount(DrawerPart part, int nuggetAmount, int ingotOrBlockAmount) {
+        ItemStack itemStack = part.getItemDisplay().getItemStack();
+        String itemName = itemStack.getType().name();
+
+        if(itemName.contains("NUGGET")){
+            int res = getAmount(part) - nuggetAmount;
+            if (res < 0) {
+                res = 0;
+            }
+            setAmount(res, part);
+        }
+        else if(itemName.contains("INGOT") || itemName.contains("BLOCK")){
+            int res = getAmount(part) - ingotOrBlockAmount;
+            if (res < 0) {
+                res = 0;
+            }
+            setAmount(res, part);
+        }
+    }
+
+
 
 
     public void setItem(DrawerPart drawerPart, ItemStack stack) {
@@ -169,6 +218,20 @@ public abstract class Drawer {
     }
 
     protected void addAmount(final int amount, DrawerPart drawerPart) {
+        if(drawerPart.getItemDisplay().getPartType().equals(PartType.LINKED)){
+            if (this.drawerParts != null) {
+                ItemStack initialItem = drawerPart.getItemDisplay().getItemStack();
+                ConverterEnum converterVal = ConverterEnum.valueOf(initialItem.getType().name());
+                int index = 0;
+                for (DrawerPart others : this.drawerParts){
+                    if(others.equals(drawerPart)) continue;
+
+                    others.getItemDisplay().setItemStack(new ItemStack(converterVal.getMaterials()[index]));
+                    setAmount((int) (initialItem.getAmount() * Math.pow(9,index)), others);
+                    index ++;
+                }
+            }
+        }
         setAmount(getAmount(drawerPart) + amount, drawerPart);
     }
 

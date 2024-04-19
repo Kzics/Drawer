@@ -7,10 +7,7 @@ import com.drawer.blocks.DrawerController;
 import com.drawer.components.ComponentAbility;
 import com.drawer.components.Components;
 import com.drawer.components.MaxUpgradeAbility;
-import com.drawer.display.ComponentDisplay;
-import com.drawer.display.DrawerItemDisplay;
-import com.drawer.display.DrawerPart;
-import com.drawer.display.DrawerTextDisplay;
+import com.drawer.display.*;
 import com.drawer.obj.drawers.AdvancedDrawer;
 import com.drawer.obj.drawers.NormalDrawer;
 import com.drawer.obj.drawers.SuperAdvancedDrawer;
@@ -99,6 +96,7 @@ public class DrawersLoader {
         writer.name("item").value(itemDisplay.getItemStack().getType().name());
         writer.name("horizontalOffset").value(itemDisplay.getHorizontalOffset());
         writer.name("lateralOffset").value(itemDisplay.getLateralOffset());
+        writer.name("type").value(itemDisplay.getPartType().name());
         writer.endObject();
     }
 
@@ -263,6 +261,7 @@ public class DrawersLoader {
         double horizontalOffset = 0;
         double lateralOffset = 0;
         ItemStack itemStack = null;
+        PartType partType = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -286,11 +285,15 @@ public class DrawersLoader {
                 case "item":
                     itemStack = new ItemStack(Material.valueOf(reader.nextString()));
                     break;
+                case "type":
+                    partType = PartType.valueOf(reader.nextString());
+                    break;
+
             }
         }
         reader.endObject();
 
-        DrawerItemDisplay itemDisplay = new DrawerItemDisplay(location, face, verticalOffset, horizontalOffset, lateralOffset);
+        DrawerItemDisplay itemDisplay = new DrawerItemDisplay(location, face, verticalOffset, horizontalOffset, lateralOffset, partType);
         itemDisplay.setItemStack(itemStack);
         return itemDisplay;
     }
