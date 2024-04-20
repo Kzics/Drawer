@@ -145,6 +145,7 @@ public class Main extends JavaPlugin implements Listener {
             getServer().getPluginManager().callEvent(addEvent);
 
         } else if (event.getAction() == Action.LEFT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.valueOf(getConfig().getString("drawer-block"))) {
+            System.out.println("HERE");
             DrawerRemoveEvent removeEvent = new DrawerRemoveEvent(event);
             getServer().getPluginManager().callEvent(removeEvent);
         }

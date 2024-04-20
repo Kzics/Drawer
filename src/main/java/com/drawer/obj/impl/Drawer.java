@@ -25,7 +25,7 @@ public abstract class Drawer {
     private boolean isVoid;
     private boolean componentHidden;
 
-    public Drawer(Location location, int maximum,BlockFace face){
+    public Drawer(Location location, int maximum, BlockFace face) {
         this.location = location;
         this.maximum = maximum;
         this.face = face;
@@ -35,7 +35,7 @@ public abstract class Drawer {
         this.components = new ArrayList<>();
     }
 
-    public Drawer(Location location){
+    public Drawer(Location location) {
         this.location = location;
 
         this.drawerParts = null;
@@ -58,33 +58,35 @@ public abstract class Drawer {
         final ComponentDisplay componentDisplay = new ComponentDisplay(component, location, face, 0.9, 0.52, lateralOffset);
         component.setDisplay(componentDisplay);
         this.components.add(component);
-        component.apply(this,main);
+        component.apply(this, main);
     }
 
 
-    public void removeComponent(ComponentAbility componentAbility, Main main){
+    public void removeComponent(ComponentAbility componentAbility, Main main) {
         this.components.remove(componentAbility);
         componentAbility.getDisplay().remove();
-        componentAbility.unApply(this,main);
+        componentAbility.unApply(this, main);
     }
 
-    public void enableVoid(){
+    public void enableVoid() {
         this.isVoid = true;
     }
-    public void disableVoid(){
+
+    public void disableVoid() {
         this.isVoid = false;
     }
-    public boolean areComponentHidden(){
+
+    public boolean areComponentHidden() {
         return componentHidden;
     }
 
-    public void setComponentHidden(boolean bool){
+    public void setComponentHidden(boolean bool) {
         this.componentHidden = bool;
 
     }
 
-    public ComponentAbility getComponent(String componentText){
-        return this.components.stream().filter(c->c.getComponent().name().equals(componentText))
+    public ComponentAbility getComponent(String componentText) {
+        return this.components.stream().filter(c -> c.getComponent().name().equals(componentText))
                 .findFirst()
                 .get();
     }
@@ -97,9 +99,10 @@ public abstract class Drawer {
         return location;
     }
 
-    public void setMaximum(int maximum){
+    public void setMaximum(int maximum) {
         this.maximum = maximum;
     }
+
     private Optional<DrawerPart> findNearestCase(Location location) {
         return this.drawerParts.stream().min(Comparator.comparingDouble(drawerCase -> drawerCase.getItemDisplay().getDisplay().getLocation().distanceSquared(location)));
     }
@@ -115,14 +118,15 @@ public abstract class Drawer {
             addAmount(amount, drawerPart);
 
         } else {
+            System.out.println("removing");
             removeAmount(amount, drawerPart);
         }
 
         drawerPart.getTextDisplay().setText(formatAmount(getAmount(drawerPart)));
         if (itemStack == null || itemStack.getType().equals(Material.AIR)) return;
 
-        if(getAmount(drawerPart) <= 0) {
-            setItem(drawerPart,new ItemStack(Material.AIR));
+        if (getAmount(drawerPart) <= 0) {
+            setItem(drawerPart, new ItemStack(Material.AIR));
         }
     }
 
@@ -132,7 +136,7 @@ public abstract class Drawer {
             drawerPart.getItemDisplay().remove();
         });
 
-        if(real) location.getBlock().setType(Material.AIR);
+        if (real) location.getBlock().setType(Material.AIR);
 
         components.forEach(componentAbility -> componentAbility.getDisplay().remove());
     }
@@ -144,49 +148,43 @@ public abstract class Drawer {
         }
         setAmount(res, drawerPart);
 
-        if(drawerPart.getItemDisplay().getPartType().equals(PartType.DISABLED)){
-            for (DrawerPart part : drawerParts){
-                if(part.equals(drawerPart)) continue;
-                if(part.getItemDisplay().getItemStack() == null) continue;
-                ItemStack itemStack = part.getItemDisplay().getItemStack();
-                String itemName = itemStack.getType().name();
+        for (DrawerPart part : drawerParts) {
+            if (part.equals(drawerPart)) continue;
+            if (part.getItemDisplay().getItemStack() == null) continue;
+            ItemStack itemStack = drawerPart.getItemDisplay().getItemStack();
+            String itemName = itemStack.getType().name();
 
-                if(itemName.contains("NUGGET")){
-                    int equivalentIngotAmount = amount / 9; // Assuming 1 ingot = 9 nuggets
-                    int equivalentBlockAmount = amount / 81; // Assuming 1 block = 81 nuggets
-                    adjustAmount(part, equivalentIngotAmount, equivalentBlockAmount);
-                }
-                else if(itemName.contains("INGOT")){
-                    int equivalentNuggetAmount = amount * 9; // Assuming 1 ingot = 9 nuggets
-                    int equivalentBlockAmount = amount / 9; // Assuming 1 block = 9 ingots
-                    adjustAmount(part, equivalentNuggetAmount, equivalentBlockAmount);
-                }
-                else if(itemName.contains("BLOCK")){
-                    int equivalentNuggetAmount = amount * 81; // Assuming 1 block = 81 nuggets
-                    int equivalentIngotAmount = amount * 9; // Assuming 1 block = 9 ingots
-                    adjustAmount(part, equivalentNuggetAmount, equivalentIngotAmount);
-                }
+            if (itemName.contains("NUGGET")) {
+                int equivalentIngotAmount = amount / 9;
+                int equivalentBlockAmount = amount / 81;
+                adjustAmount(part, equivalentIngotAmount, equivalentBlockAmount);
+            } else if (itemName.contains("INGOT")) {
+                int equivalentNuggetAmount = amount * 9; // Assuming 1 ingot = 9 nuggets
+                int equivalentBlockAmount = amount; // 1 ingot = 1/9 block
+                adjustAmount(part, equivalentNuggetAmount, equivalentBlockAmount);
+            } else if (itemName.contains("BLOCK")) {
+                int equivalentNuggetAmount = amount * 81; // Assuming 1 block = 81 nuggets
+                int equivalentIngotAmount = amount * 9; // Assuming 1 block = 9 ingots
+                adjustAmount(part, equivalentNuggetAmount, equivalentIngotAmount);
             }
         }
     }
+
     private void adjustAmount(DrawerPart part, int nuggetAmount, int ingotOrBlockAmount) {
         ItemStack itemStack = part.getItemDisplay().getItemStack();
         String itemName = itemStack.getType().name();
+        int res;
 
         if(itemName.contains("NUGGET")){
-            int res = getAmount(part) - nuggetAmount;
-            if (res < 0) {
-                res = 0;
-            }
-            setAmount(res, part);
+            res = getAmount(part) - nuggetAmount;
+        } else { // For both INGOT and BLOCK
+            res = getAmount(part) - ingotOrBlockAmount;
         }
-        else if(itemName.contains("INGOT") || itemName.contains("BLOCK")){
-            int res = getAmount(part) - ingotOrBlockAmount;
-            if (res < 0) {
-                res = 0;
-            }
-            setAmount(res, part);
+
+        if (res < 0) {
+            res = 0;
         }
+        setAmount(res, part);
     }
 
 
@@ -227,12 +225,14 @@ public abstract class Drawer {
                     if(others.equals(drawerPart)) continue;
 
                     others.getItemDisplay().setItemStack(new ItemStack(converterVal.getMaterials()[index]));
-                    setAmount((int) (initialItem.getAmount() * Math.pow(9,index)), others);
+                    setAmount((int) (getAmount(others) + initialItem.getAmount() * Math.pow(9,index + 1)), others);
+                    others.getTextDisplay().setText(formatAmount(getAmount(others)));
                     index ++;
                 }
             }
         }
         setAmount(getAmount(drawerPart) + amount, drawerPart);
+
     }
 
     public DrawerPart getPart(Location location){

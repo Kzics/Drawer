@@ -59,7 +59,6 @@ public class DrawerListeners implements Listener {
             DrawerPart part = advancedDrawer.getPart(itemDisplay.getLocation());
 
             if(part == null) return;
-            if(part.getItemDisplay().getPartType().equals(PartType.DISABLED)) return;
 
             if(event.getItem() != null && event.getItem().getItemMeta() != null && event.getItem().getItemMeta().getPersistentDataContainer().has(main.componentKey, PersistentDataType.STRING)){
                 String component = event.getItem().getItemMeta().getPersistentDataContainer().get(main.componentKey,PersistentDataType.STRING);
@@ -87,6 +86,7 @@ public class DrawerListeners implements Listener {
             }
             if (action == DrawerAction.ADD && item != null &&  !item.getType().equals(Material.AIR)) {
                 event.setCancelled(true);
+                if(part.getItemDisplay().getPartType().equals(PartType.DISABLED)) return;
 
                 if (advancedDrawer.getStoredItem(part) == null || advancedDrawer.getStoredItem(part).getType().equals(Material.AIR)) {
                     advancedDrawer.updateDrawer(item.getAmount(),DrawerAction.ADD,item,part);
