@@ -26,4 +26,13 @@ public enum ConverterEnum {
     public Material getNugget(){
         return materials[1];
     }
+
+    public static ConverterEnum getConverter(Material material){
+        for(ConverterEnum converterEnum : values()){
+            if(converterEnum.getIngot() == material || converterEnum.getNugget() == material){
+                return converterEnum;
+            }
+        }
+        return null;
+    }
 }

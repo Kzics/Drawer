@@ -6,6 +6,7 @@ import com.drawer.components.ComponentAbility;
 import com.drawer.display.ComponentDisplay;
 import com.drawer.display.DrawerPart;
 import com.drawer.display.PartType;
+import com.drawer.obj.drawers.OreDrawer;
 import com.drawer.utils.ConverterEnum;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -141,44 +142,30 @@ public abstract class Drawer {
         components.forEach(componentAbility -> componentAbility.getDisplay().remove());
     }
 
-    public void removeAmount(final int amount, DrawerPart drawerPart) {
-        int res = getAmount(drawerPart) - amount;
+    public void removeAmount(final int amount, DrawerPart removedPart) {
+        int res = getAmount(removedPart) - amount;
         if (res < 0) {
             res = 0;
         }
-        setAmount(res, drawerPart);
+        setAmount(res, removedPart);
+        removedPart.getTextDisplay().setText(formatAmount(res));
 
-        for (DrawerPart part : drawerParts) {
-            if (part.equals(drawerPart)) continue;
-            if (part.getItemDisplay().getItemStack() == null) continue;
-            ItemStack itemStack = drawerPart.getItemDisplay().getItemStack();
-            String itemName = itemStack.getType().name();
+        if(!(this instanceof OreDrawer)) return;
 
-            if (itemName.contains("NUGGET")) {
-                int equivalentIngotAmount = amount / 9;
-                int equivalentBlockAmount = amount / 81;
-                adjustAmount(part, equivalentIngotAmount, equivalentBlockAmount);
-            } else if (itemName.contains("INGOT")) {
-                int equivalentNuggetAmount = amount * 9; // Assuming 1 ingot = 9 nuggets
-                int equivalentBlockAmount = amount; // 1 ingot = 1/9 block
-                adjustAmount(part, equivalentNuggetAmount, equivalentBlockAmount);
-            } else if (itemName.contains("BLOCK")) {
-                int equivalentNuggetAmount = amount * 81; // Assuming 1 block = 81 nuggets
-                int equivalentIngotAmount = amount * 9; // Assuming 1 block = 9 ingots
-                adjustAmount(part, equivalentNuggetAmount, equivalentIngotAmount);
-            }
-        }
+        OreDrawer oreDrawer = (OreDrawer) this;
+        oreDrawer.multiRemove(amount, removedPart);
     }
-
-    private void adjustAmount(DrawerPart part, int nuggetAmount, int ingotOrBlockAmount) {
+    private void adjustAmount(DrawerPart part, int nuggetAmount, int ingotAmount) {
         ItemStack itemStack = part.getItemDisplay().getItemStack();
         String itemName = itemStack.getType().name();
         int res;
 
-        if(itemName.contains("NUGGET")){
+        if(itemName.contains("NUGGET")) {
             res = getAmount(part) - nuggetAmount;
-        } else { // For both INGOT and BLOCK
-            res = getAmount(part) - ingotOrBlockAmount;
+        } else if (itemName.contains("INGOT")) {
+            res = getAmount(part) - ingotAmount;
+        } else { // For BLOCK
+            res = getAmount(part) - (nuggetAmount / 9); // Note the division by 9 here.
         }
 
         if (res < 0) {
@@ -207,7 +194,7 @@ public abstract class Drawer {
     }
 
     protected void setAmount(final int amount, DrawerPart drawerPart) {
-        drawerPart.getTextDisplay().setText(String.valueOf(amount));
+        drawerPart.getTextDisplay().setText(formatAmount(amount));
         /*if (drawerPart == topDrawerPart) {
             this.amountTop = amount;
         } else if (drawerPart == bottomDrawerPart) {
@@ -219,7 +206,8 @@ public abstract class Drawer {
         if(drawerPart.getItemDisplay().getPartType().equals(PartType.LINKED)){
             if (this.drawerParts != null) {
                 ItemStack initialItem = drawerPart.getItemDisplay().getItemStack();
-                ConverterEnum converterVal = ConverterEnum.valueOf(initialItem.getType().name());
+                ConverterEnum converterVal = ConverterEnum.getConverter(initialItem.getType());
+                if(converterVal == null) return;
                 int index = 0;
                 for (DrawerPart others : this.drawerParts){
                     if(others.equals(drawerPart)) continue;
