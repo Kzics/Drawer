@@ -33,6 +33,12 @@ public class OreDrawer extends Drawer {
                 } else {
                     setAmount((int) (storedAmount / Math.pow(9,2)), part);
                 }
+            }else if(itemStack.getType().name().contains("BLOCK")){
+                if(partName.contains("INGOT")){
+                    setAmount(storedAmount * 9, part);
+                }else{
+                    setAmount((int) (storedAmount * Math.pow(9,2)), part);
+                }
             }
         }
     }

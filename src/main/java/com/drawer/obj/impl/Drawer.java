@@ -119,7 +119,6 @@ public abstract class Drawer {
             addAmount(amount, drawerPart);
 
         } else {
-            System.out.println("removing");
             removeAmount(amount, drawerPart);
         }
 

@@ -325,7 +325,7 @@ public class Main extends JavaPlugin implements Listener {
         event.setCancelled(true);
         broken.setType(Material.AIR);
 
-        String type = drawer instanceof AdvancedDrawer ? "advanced" : drawer instanceof NormalDrawer ? "normal" : drawer instanceof SuperAdvancedDrawer ? "superadvanced" : drawer instanceof BlankDrawer ? "blank": "controller";
+        String type = getDrawerType(drawer);
         Material material = type.equals("controller") ? Material.valueOf(getConfig().getString("controller-block")) : Material.valueOf(getConfig().getString("drawer-block"));
 
         ItemStack drawerItem = new DrawerItem(material,
@@ -378,6 +378,14 @@ public class Main extends JavaPlugin implements Listener {
         if(drawer instanceof DrawerController){
             drawersManager.getControllers().remove(drawer.getLocation());
         }
+    }
+    private String getDrawerType(Drawer drawer) {
+        if (drawer instanceof AdvancedDrawer) return "advanced";
+        if (drawer instanceof NormalDrawer) return "normal";
+        if (drawer instanceof SuperAdvancedDrawer) return "superadvanced";
+        if (drawer instanceof BlankDrawer) return "blank";
+        if (drawer instanceof OreDrawer) return "ore";
+        return "controller";
     }
 
     public ItemStack createDrawerItem(String type) {

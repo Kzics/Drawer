@@ -29,7 +29,7 @@ public enum ConverterEnum {
 
     public static ConverterEnum getConverter(Material material){
         for(ConverterEnum converterEnum : values()){
-            if(converterEnum.getIngot() == material || converterEnum.getNugget() == material){
+            if(converterEnum.name().equals(material.name())){
                 return converterEnum;
             }
         }
